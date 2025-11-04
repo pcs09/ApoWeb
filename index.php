@@ -40,17 +40,35 @@
         <fieldset class="mb-4">
             <legend class="text-primary"><i class="fas fa-user-alt"></i> Dados Pessoais e Contato</legend>
             <div class="row g-3">
+                
                 <div class="col-md-8">
                     <label for="nome" class="form-label">Nome Completo:</label>
                     <input type="text" name="nome" id="nome" class="form-control" placeholder="Seu nome" required>
                 </div>
+                
                 <div class="col-md-4">
+                    <label for="data_nascimento" class="form-label">Data de Nasc.:</label>
+                    <input type="date" name="data_nascimento" id="data_nascimento" class="form-control" required>
+                </div>
+                
+                <div class="col-md-6">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" name="email" id="email" class="form-control" placeholder="seu.email@exemplo.com" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="telefone" class="form-label">Telefone/Celular:</label>
+                    <input type="text" name="telefone" id="telefone" class="form-control" placeholder="(DDD) XXXXX-XXXX">
+                </div>
+                
+                <div class="col-md-6">
                     <label for="nacionalidade" class="form-label">Nacionalidade/Estado Civil:</label>
                     <input type="text" name="nacionalidade" id="nacionalidade" class="form-control" placeholder="Brasileiro(a), Solteiro(a)">
                 </div>
-                <div class="col-md-6"><label for="email" class="form-label">Email:</label><input type="email" name="email" id="email" class="form-control" placeholder="seu.email@exemplo.com" required></div>
-                <div class="col-md-6"><label for="telefone" class="form-label">Telefone/Celular:</label><input type="text" name="telefone" id="telefone" class="form-control" placeholder="(DDD) XXXXX-XXXX"></div>
-                <div class="col-12"><label for="endereco" class="form-label">Endereço:</label><input type="text" name="endereco" id="endereco" class="form-control" placeholder="Rua, Número, Bairro, Cidade-UF"></div>
+
+                <div class="col-md-6">
+                    <label for="endereco" class="form-label">Endereço (Cidade-UF):</label>
+                    <input type="text" name="endereco" id="endereco" class="form-control" placeholder="Cidade-UF">
+                </div>
             </div>
         </fieldset>
         

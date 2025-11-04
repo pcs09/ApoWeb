@@ -1,6 +1,6 @@
 <?php
 
-// função para limpar e receber dados
+// função  para limpar e receber dados
 
 function limpar_entrada($data) {
     if (is_array($data)) {
@@ -9,7 +9,7 @@ function limpar_entrada($data) {
     return htmlspecialchars(stripslashes(trim($data)));
 }
 
-// função para formatar o período
+// função para formatar o periodo
 
 function formatar_periodo($inicio, $fim) {
     $fim_lower = strtolower($fim);
@@ -19,9 +19,30 @@ function formatar_periodo($inicio, $fim) {
     return $inicio . ' – ' . $fim;
 }
 
+// função para calcular idade
 
-// Dados pessoais
+function calcular_idade($data_nascimento) {
+    if (empty($data_nascimento)) return null;
+    try {
+        $data_nasc = new DateTime($data_nascimento);
+        $data_atual = new DateTime();
+        $idade = $data_nasc->diff($data_atual)->y;
+        return $idade;
+    } catch (Exception $e) {
+        return null; // null em caso de erro
+    }
+}
+
+// Dados Pessoais
+
 $nome = limpar_entrada($_POST['nome'] ?? 'Nome do Candidato');
+$data_nascimento = limpar_entrada($_POST['data_nascimento'] ?? '');
+
+// Calcular idade
+
+$idade = calcular_idade($data_nascimento);
+$idade_texto = ($idade !== null) ? $idade . ' anos' : ''; 
+
 $nacionalidade = limpar_entrada($_POST['nacionalidade'] ?? '');
 $email = limpar_entrada($_POST['email'] ?? '');
 $telefone = limpar_entrada($_POST['telefone'] ?? '');
@@ -29,7 +50,7 @@ $endereco = limpar_entrada($_POST['endereco'] ?? '');
 $objetivo = limpar_entrada($_POST['objetivo'] ?? '');
 $habilidades = limpar_entrada($_POST['habilidades'] ?? '');
 
-// Experiência profissional 
+// Experiencia profissional 
 
 $experiencia_profissional = [];
 if (isset($_POST['cargo']) && is_array($_POST['cargo'])) {
@@ -56,7 +77,8 @@ if (isset($_POST['cargo']) && is_array($_POST['cargo'])) {
     }
 }
 
-// Formação Acadêmica 
+// Formaçao academica 
+
 $formacao_academica = [];
 if (isset($_POST['curso']) && is_array($_POST['curso'])) {
     $cursos = limpar_entrada($_POST['curso']);
@@ -114,7 +136,14 @@ if (isset($_POST['curso']) && is_array($_POST['curso'])) {
         <header class="text-center pb-3 mb-4 border-bottom">
             <h1 class="display-5 text-primary mb-1"><?php echo $nome; ?></h1>
             <p class="mb-2 text-muted small">
-                <?php echo $nacionalidade; ?> | <?php echo $endereco; ?>
+                <?php 
+                    $dados_cabecalho = [];
+                    if (!empty($nacionalidade)) $dados_cabecalho[] = $nacionalidade;
+                    if (!empty($idade_texto)) $dados_cabecalho[] = $idade_texto;
+                    if (!empty($endereco)) $dados_cabecalho[] = $endereco;
+                    
+                    echo implode(' | ', $dados_cabecalho);
+                ?>
             </p>
             <p class="mb-0">
                 <span class="me-3"><i class="fas fa-envelope me-1"></i> <?php echo $email; ?></span>
